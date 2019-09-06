@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-  <test name="Test">
-  </test> <!-- Test -->
+<suite name="MapSync App Test Suite">
+
+	<test name="MapSync WebApp Validation">
+		<classes>
+			<class name="com.qi.mapsync.tests.AU001_Uivalidation" /> 
+			<class name="com.qi.mapsync.tests.AU002_LiveIncidentvalidation" />
+			<class name="com.qi.mapsync.tests.AU003_LiveCameravalidation" />  
+		</classes>	
+	</test> 
+	
 </suite> <!-- Suite -->

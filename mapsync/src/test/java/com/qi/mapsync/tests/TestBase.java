@@ -14,17 +14,21 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 import com.qi.mapsync.common.utilities.Utilities;
 
 public class TestBase {
 	
-	public static WebDriver driver = null;
+	public WebDriver driver;
 	private Utilities util=null;
 	
-	@BeforeSuite
+	@BeforeClass
 	public void initialize() throws IOException{
 		util = new Utilities();
 		String brw = util.getPropertyValue("Browser");
@@ -91,15 +95,18 @@ public class TestBase {
 	
 		driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
-      	driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-      	driver.get("http://www.mapsynq.com");		
+      	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+      	
+      	String url = util.getPropertyValue("URL");
+		if (url==null) url="http://www.mapsynq.com";
+      	driver.get(url);		
 	}
 	
-	@AfterSuite
+	@AfterClass
 	//Test cleanup
 	public void TeardownTest()
     {
-        TestBase.driver.quit();
+        driver.quit();
     }
 
 }
