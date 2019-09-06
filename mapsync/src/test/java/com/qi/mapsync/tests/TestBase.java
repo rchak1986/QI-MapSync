@@ -15,11 +15,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
 import com.qi.mapsync.common.utilities.Utilities;
 
@@ -28,6 +24,7 @@ public class TestBase {
 	public WebDriver driver;
 	private Utilities util=null;
 	
+	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public void initialize() throws IOException{
 		util = new Utilities();

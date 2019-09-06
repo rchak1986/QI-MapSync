@@ -24,7 +24,7 @@ public class AU001_Uivalidation extends TestBase {
 		
 		//add further steps here
 		
-		Map map = PageFactory.initElements(driver, Map.class);		
+		MapArea map = PageFactory.initElements(driver, MapArea.class);		
 		map.waitUntilBannerDisplayed();
 		map.closeAdBanner();
 	}

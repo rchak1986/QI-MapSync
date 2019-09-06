@@ -6,7 +6,8 @@
 		<classes>
 			<class name="com.qi.mapsync.tests.AU001_Uivalidation" /> 
 			<class name="com.qi.mapsync.tests.AU002_LiveIncidentvalidation" />
-			<class name="com.qi.mapsync.tests.AU003_LiveCameravalidation" />  
+			<class name="com.qi.mapsync.tests.AU003_LiveCameravalidation" />
+			<class name="com.qi.mapsync.tests.AU004_LiveTollsvalidation" />    
 		</classes>	
 	</test> 
 	

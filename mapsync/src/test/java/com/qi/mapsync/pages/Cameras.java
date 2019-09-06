@@ -63,7 +63,7 @@ public class Cameras {
     
     public boolean validateCameraSearch(boolean validSearch){
     	if (validSearch){
-    		if (lstCameraList.size()>0) return true;
+    		if (lstCameraList.size()>0 && !welNoCameraFound.isDisplayed()) return true;
     		else return false;
     	}else{
     		if (welNoCameraFound.isDisplayed()) return true;

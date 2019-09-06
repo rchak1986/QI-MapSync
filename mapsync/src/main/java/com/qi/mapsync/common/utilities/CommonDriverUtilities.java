@@ -1,5 +1,6 @@
 package com.qi.mapsync.common.utilities;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -68,5 +69,57 @@ public class CommonDriverUtilities {
 		}catch(Exception err){
 			return false;
 		}
+	}
+	
+	public int getRowCount(WebElement tbl) throws Exception
+	{
+		try{
+			return tbl.findElements(By.xpath("tbody/tr")).size();
+		}catch(Exception err){
+			return 0;
+		}
+	}
+	
+	public int getColumnCount(WebElement tbl, int rowNumber) throws Exception
+	{
+		try{
+			return tbl.findElements(By.xpath("tbody/tr["+Integer.toString(rowNumber)+"]/td")).size();
+		}catch(Exception err){
+			return 0;
+		}
+	}
+	
+	public String getCellData(WebElement tbl,int rownum,int colnum) throws Exception
+	{
+		try{
+			return tbl.findElement(By.xpath("tbody/tr["+Integer.toString(rownum)+"]/td["+Integer.toString(colnum)+"]")).getText();
+		}catch(Exception err){
+			return null;
+		}
+	}
+	
+	public int getRowWithCellText(WebElement tbl, String srchString) throws Exception
+	{
+		String currString;
+		int i=1,j=1,rownumber=0;
+		int max_row=getRowCount(tbl);
+		int max_col=0;
+		try{
+			for (i=1;i<=max_row;i++)
+			{
+				max_col=getColumnCount(tbl,i);
+				for(j=1;j<=max_col;j++)
+				{
+					currString= getCellData(tbl,i,j);
+					if (currString.equals(srchString))
+					{
+						rownumber=i;
+						break;
+					}
+				}
+			}
+		}catch(Exception err){
+		}
+		return rownumber;
 	}
 }

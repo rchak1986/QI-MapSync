@@ -13,7 +13,7 @@ public class AU003_LiveCameravalidation extends TestBase {
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
 		Assert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
 		
-		Map map = PageFactory.initElements(driver, Map.class);
+		MapArea map = PageFactory.initElements(driver, MapArea.class);
 		map.waitUntilBannerDisplayed();
 		map.closeAdBanner();
 		
