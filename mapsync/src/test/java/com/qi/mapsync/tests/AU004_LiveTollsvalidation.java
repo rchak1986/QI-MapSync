@@ -3,19 +3,22 @@ package com.qi.mapsync.tests;
 import java.util.HashMap;
 
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.qi.mapsync.pages.HomePage;
 import com.qi.mapsync.pages.MapArea;
 import com.qi.mapsync.pages.MapTollDetailPopup;
 import com.qi.mapsync.pages.Tolls;
+import com.qi.mapsync.common.utilities.*;
 
+@Listeners(TestReporter.class)
 public class AU004_LiveTollsvalidation extends TestBase {
 	@Test
 	public void validateTollList() throws Exception{
+		CustomAssertion cAssert = new CustomAssertion(driver);
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
-		Assert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
 		
 		MapArea map = PageFactory.initElements(driver, MapArea.class);
 		map.waitUntilBannerDisplayed();
@@ -23,28 +26,28 @@ public class AU004_LiveTollsvalidation extends TestBase {
 		
 		Tolls toll = PageFactory.initElements(driver, Tolls.class);
 		toll.loadTollList();
-		Assert.assertTrue(toll.validateTollList(),"Toll List is not loaded");
+		cAssert.assertTrue(toll.validateTollList(),"Toll List is not loaded");
 		
 		toll.searchToll("CTE");
-		Assert.assertTrue(toll.validateTollSearch(true), "Toll list is not populated");
+		cAssert.assertTrue(toll.validateTollSearch(true), "Toll list is not populated");
 		toll.clearSearch();
 		
 		toll.searchToll("abcdxyz");
-		Assert.assertTrue(toll.validateTollSearch(false), "Toll list is not expected to get populated");
+		cAssert.assertTrue(toll.validateTollSearch(false), "Toll list is not expected to get populated");
 		toll.clearSearch();
 		
 		int pos = map.getZoomDraggerPosition();
-		String camDetail = toll.selectTollLocationAndCaptureInfo("ECP TO CITY");
-		Assert.assertTrue(map.validateMapPopUp(), "Popup with cam detail is not shown up");
+		String tollDetail = toll.selectTollLocationAndCaptureInfo("ECP TO CITY");
+		cAssert.assertTrue(map.validateMapPopUp(), "Popup with cam detail is not shown up");
 		int pos2=map.getZoomDraggerPosition();
-		Assert.assertTrue(pos>pos2,"Automatic Zoo did not happen");
+		cAssert.assertTrue(pos>pos2,"Automatic Zoo did not happen");
 		
 		map.switch2TollFrame();
 		MapTollDetailPopup mapToll = PageFactory.initElements(driver, MapTollDetailPopup.class);
 		
-		Assert.assertTrue(mapToll.validateTollLocation(camDetail),"Popup details does not match with the selected toll");
-		Assert.assertTrue(mapToll.validateIfTaxTableDisplayed(),"Tax Table info is not shown correctly");
-		Assert.assertTrue(mapToll.validateVehicleTypeIfPresent("Motorcycle (Weekdays)"),"Vehicle Type is not shown correctly");
+		cAssert.assertTrue(mapToll.validateTollLocation(tollDetail),"Popup details does not match with the selected toll");
+		cAssert.assertTrue(mapToll.validateIfTaxTableDisplayed(),"Tax Table info is not shown correctly");
+		cAssert.assertTrue(mapToll.validateVehicleTypeIfPresent("Motorcycle (Weekdays)"),"Vehicle Type is not shown correctly");
 		mapToll.selectVehicleTypeIfPresent("Motorcycle (Weekdays)");
 		
 		HashMap<String, String> taxMap = new HashMap<>();
@@ -58,12 +61,12 @@ public class AU004_LiveTollsvalidation extends TestBase {
 		taxMap.put("09:00 - 22:30","$0.00");
 		taxMap.put("22:30 - 23:59","$0.00");
 		
-		Assert.assertTrue(mapToll.validateTaxTable(taxMap),"Tax Rate Table is not showing correct data");
+		cAssert.assertTrue(mapToll.validateTaxTable(taxMap),"Tax Rate Table is not showing correct data");
 		
 		map.switch2DefaultFrame();
 		
 		map.clickOnZoomIn(2);
-		Assert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up after zoom");		
+		cAssert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up after zoom");		
 		map.closeMapPopUp();
 	}
 }

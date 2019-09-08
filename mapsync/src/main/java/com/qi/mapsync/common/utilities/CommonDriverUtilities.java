@@ -1,7 +1,15 @@
 package com.qi.mapsync.common.utilities;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -14,7 +22,23 @@ public class CommonDriverUtilities {
     public CommonDriverUtilities(WebDriver driver){ 
              this.driver=driver; 
     }
-
+    
+    public File getScreenshot(String methodName){
+    	File destFile=null;
+    	Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
+    	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        try {
+            String reportDirectory = new File(System.getProperty("user.dir")).getAbsolutePath() + "/test-output/test-reports";
+            destFile = new File((String) reportDirectory+"/failure_screenshots/"+methodName+"_"+formater.format(calendar.getTime())+".png");
+            FileUtils.copyFile(scrFile, destFile);
+            
+            return destFile;
+        }catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 	public void waitForLoad(WebDriver driver) {
 		Utilities util = new Utilities();
 		String timeout = util.getPropertyValue("GlobalTimeOutInSecs");

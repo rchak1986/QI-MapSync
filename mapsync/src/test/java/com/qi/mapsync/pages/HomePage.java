@@ -1,4 +1,6 @@
 package com.qi.mapsync.pages;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,6 +28,47 @@ public class HomePage {
     @FindBy(how=How.XPATH, using="//*[@id='div_header']//a[contains(text(),'SG GPS Navigation')]") WebElement lnkGPSNavigation;
     @FindBy(how=How.XPATH, using="//*[@id='div_header']//a[contains(text(),'Legend')]") WebElement lnkLegend;
     @FindBy(how=How.XPATH, using="//*[@id='div_header']//a[contains(text(),'Calendar')]") WebElement lnkCalendar;
+    @FindBy(how=How.XPATH, using="//*[@id='info_panel']//a[contains(@class,'tab_button')]") List<WebElement> tabLeftTabs;
+    
+    public void clickOnRegister(){
+    	lnkRegister.click();
+    }
+    public boolean validateAndClickLeftTab(String tabText) throws InterruptedException{
+    	boolean flag=false;
+    	switch(tabText.toLowerCase()){
+    		case "directions":
+    			for (WebElement elem: tabLeftTabs){
+    				if (elem.getAttribute("class").contains("directions")){
+    					flag=true;
+    					elem.click();
+    					Thread.sleep(1000);
+    					break;
+    				}
+    			}
+    			break;
+    		case "personal":
+    			for (WebElement elem: tabLeftTabs){
+    				if (elem.getAttribute("class").contains("me_tab")){
+    					flag=true;
+    					elem.click();
+    					Thread.sleep(1000);
+    					break;
+    				}
+    			}
+    			break;
+    		case "live":
+    			for (WebElement elem: tabLeftTabs){
+    				if (elem.getAttribute("class").contains("live_tab")){
+    					flag=true;
+    					elem.click();
+    					Thread.sleep(1000);
+    					break;
+    				}
+    			}
+    			break;
+    	}
+    	return flag;
+    }
     
     public boolean validatePageLoad() throws Exception{
     	driverUtil.waitForLoad(driver);

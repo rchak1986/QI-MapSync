@@ -16,20 +16,31 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
-import com.qi.mapsync.common.utilities.Utilities;
+import com.qi.mapsync.common.utilities.*;
 
+@Listeners(TestReporter.class)
 public class TestBase {
 	
 	public WebDriver driver;
 	private Utilities util=null;
 	
+	public WebDriver getDriver() {
+        return driver;
+	}
+	
 	@SuppressWarnings("deprecation")
 	@BeforeClass
-	public void initialize() throws IOException{
+	@Parameters({ "browser" })
+	public void initialize(@Optional String browser) throws IOException{
 		util = new Utilities();
 		String brw = util.getPropertyValue("Browser");
 		if (brw==null) brw="chrome";
+		if (browser!=null && !browser.equals("")) brw= browser.toLowerCase();
+		
 		switch(brw.trim().toLowerCase()){
 		default:
 			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\src\\Resources\\drivers\\chromedriver.exe");

@@ -27,7 +27,7 @@ public class MapCameraDetailPopup {
     
     public boolean validateCameraLocation(String expectedLocation){
     	boolean flag=false;
-    	if (welLocationInfo.getText().trim().contains(expectedLocation)) flag=true;
+    	if (welLocationInfo.getText().trim().toLowerCase().contains(expectedLocation.toLowerCase())) flag=true;
     	return flag;
     }
     

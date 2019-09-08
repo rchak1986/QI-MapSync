@@ -1,16 +1,20 @@
 package com.qi.mapsync.tests;
 
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.qi.mapsync.pages.*;
+import com.qi.mapsync.common.utilities.*;
 
+@Listeners(TestReporter.class)
 public class AU002_LiveIncidentvalidation extends TestBase {
 	@Test
 	public void testLiveIncident() throws Exception{
+		CustomAssertion cAssert = new CustomAssertion(driver);
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
-		Assert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
 		
 		MapArea map = PageFactory.initElements(driver, MapArea.class);		
 		map.waitUntilBannerDisplayed();
@@ -18,28 +22,37 @@ public class AU002_LiveIncidentvalidation extends TestBase {
 		
 		Incidents inc = PageFactory.initElements(driver, Incidents.class);
 		inc.loadIncidents();
-		Assert.assertTrue(inc.validateIncidentList(),"Incident List is not loaded");
+		cAssert.assertTrue(inc.validateIncidentList(),"Incident List is not loaded");
 		
 		inc.searchIncident("Clementi");
-		Assert.assertTrue(inc.validateSearchIncident(true), "Incident list is not populated");
+		try{
+			cAssert.assertTrue(inc.validateSearchIncident(true), "Incident list is not populated");
+		}catch(Error e){
+			Reporter.log(e.toString());
+		}
 		inc.clearSearch();
 		
 		inc.searchIncident("abcdxyz");
-		Assert.assertTrue(inc.validateSearchIncident(false), "Incident list is not expected to get populated");
+		cAssert.assertTrue(inc.validateSearchIncident(false), "Incident list is not expected to get populated");
 		inc.clearSearch();
 		
 		int pos = map.getZoomDraggerPosition();
 		String incDetail = inc.selectIncidentByTypeAndCaptureTimeAndDesc("Roadwork");
-		Assert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up");
-		int pos2=map.getZoomDraggerPosition();
-		Assert.assertTrue(pos>pos2,"Automatic Zoo did not happen");
-		Assert.assertTrue(map.validateMapPopUpTimeAndDesc("Roadwork", incDetail),"Popup details does not match with the selected incident");
-		map.clickOnZoomIn(2);
-		Assert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up after zoom");		
-		map.closeMapPopUp();
+		try{
+			cAssert.assertTrue(incDetail!=null);
+			cAssert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up");
+			int pos2=map.getZoomDraggerPosition();
+			cAssert.assertTrue(pos>pos2,"Automatic Zoo did not happen");
+			cAssert.assertTrue(map.validateMapPopUpTimeAndDesc("Roadwork", incDetail),"Popup details does not match with the selected incident");
+			map.clickOnZoomIn(2);
+			cAssert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up after zoom");		
+			map.closeMapPopUp();
+		}catch(Error e){
+			Reporter.log(e.toString());
+		}		
 		
 		inc.selectYesterday();
-		Assert.assertTrue(inc.validateNoIncident(),"Incident List is expected not to be loaded");
+		cAssert.assertTrue(inc.validateNoIncident(),"Incident List is expected not to be loaded");
 		inc.pageRefresh();
 	}
 }

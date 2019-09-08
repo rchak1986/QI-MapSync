@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [MapSync App Test Suite]">
+  <parameter name="browser" value="firefox"/>
   <test name="MapSync WebApp Validation(failed)">
+    <parameter name="browser" value="firefox"/>
     <classes>
-      <class name="com.qi.mapsync.tests.AU002_LiveIncidentvalidation">
-        <methods>
-          <include name="initialize"/>
-          <include name="testLiveIncident"/>
-          <include name="TeardownTest"/>
-        </methods>
-      </class> <!-- com.qi.mapsync.tests.AU002_LiveIncidentvalidation -->
       <class name="com.qi.mapsync.tests.AU001_Uivalidation">
         <methods>
+          <include name="mapSyncUIValidation"/>
           <include name="initialize"/>
-          <include name="TeardownTest"/>
         </methods>
       </class> <!-- com.qi.mapsync.tests.AU001_Uivalidation -->
-      <class name="com.qi.mapsync.tests.AU003_LiveCameravalidation">
-        <methods>
-          <include name="initialize"/>
-          <include name="TeardownTest"/>
-        </methods>
-      </class> <!-- com.qi.mapsync.tests.AU003_LiveCameravalidation -->
     </classes>
   </test> <!-- MapSync WebApp Validation(failed) -->
 </suite> <!-- Failed suite [MapSync App Test Suite] -->

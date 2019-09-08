@@ -22,13 +22,13 @@ public class MapTollDetailPopup {
              driverUtil = new CommonDriverUtilities(driver);
     }
     
-    @FindBy(how=How.XPATH, using="/html/body/div/label/b") WebElement welLocationInfo;
+    @FindBy(how=How.XPATH, using="//html/body/label/b") WebElement welLocationInfo;
     @FindBy(how=How.ID, using="select_price_chart") WebElement ddlVahicleTypes;
     @FindBy(how=How.XPATH, using="//*[@id='div_erp_rate']/table") List<WebElement> tblTaxRates;
     
     public boolean validateTollLocation(String expectedLocation){
     	boolean flag=false;
-    	if (welLocationInfo.getText().trim().contains(expectedLocation)) flag=true;
+    	if (welLocationInfo.getText().trim().toLowerCase().contains(expectedLocation.toLowerCase())) flag=true;
     	return flag;
     }
     
@@ -58,7 +58,7 @@ public class MapTollDetailPopup {
     	List<WebElement> list = sel.getOptions();
     	for (WebElement e : list){
     		if (e.getText().trim().contains(vType)){
-    			sel.selectByValue(e.getText());
+    			sel.selectByVisibleText(e.getText());
     			flag=true;
     			break;
     		}
@@ -69,7 +69,7 @@ public class MapTollDetailPopup {
     public WebElement getTargetTaxTable(){
     	WebElement tElem=null;
     	for (WebElement elem: tblTaxRates){
-    		if (elem.getAttribute("style").contains("display:block;")){
+    		if (elem.getAttribute("style").contains("block")){
     			tElem=elem;
     			break;
     		}
