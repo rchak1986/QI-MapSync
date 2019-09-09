@@ -9,6 +9,7 @@ import com.qi.mapsync.common.utilities.CustomAssertion;
 import com.qi.mapsync.common.utilities.TestReporter;
 import com.qi.mapsync.pages.HomePage;
 import com.qi.mapsync.pages.MapArea;
+import com.qi.mapsync.pages.Personal;
 import com.qi.mapsync.pages.Register;
 
 @Listeners(TestReporter.class)
@@ -45,7 +46,10 @@ public class AU005_RegistrationValidation extends TestBase {
 		register.reNavigate();
 		
 		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page re-load");
-		hPage.clickOnRegister();
+		cAssert.assertTrue(hPage.validateAndClickLeftTab("Personal"),"Personal Tab Validation");
+		
+		Personal personal = PageFactory.initElements(driver, Personal.class);
+		cAssert.assertTrue(personal.validateAndClickRegister(),"Personal Tab Register button validation");
 		cAssert.assertTrue(register.validateRegisterPageLoad(),"Profile registration page load");
 		
 		register.setFName("TestFName");

@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="MapSync App Test Suite" duration-ms="58432" started-at="2019-09-09T12:51:49Z" finished-at="2019-09-09T12:52:48Z">
+  <suite name="MapSync App Test Suite" duration-ms="63444" started-at="2019-09-09T16:46:26Z" finished-at="2019-09-09T16:47:29Z">
     <groups>
     </groups>
-    <test name="MapSync WebApp Validation - Chrome" duration-ms="58432" started-at="2019-09-09T12:51:49Z" finished-at="2019-09-09T12:52:48Z">
+    <test name="MapSync WebApp Validation - Chrome" duration-ms="63444" started-at="2019-09-09T16:46:26Z" finished-at="2019-09-09T16:47:29Z">
       <class name="com.qi.mapsync.tests.AU001_Uivalidation">
-        <test-method status="PASS" signature="cleanReportDirectory()[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="cleanReportDirectory" is-config="true" duration-ms="22" started-at="2019-09-09T18:21:49Z" finished-at="2019-09-09T18:21:49Z">
+        <test-method status="PASS" signature="cleanReportDirectory()[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="cleanReportDirectory" is-config="true" duration-ms="22" started-at="2019-09-09T22:16:26Z" finished-at="2019-09-09T22:16:26Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- cleanReportDirectory -->
-        <test-method status="PASS" signature="initialize(java.lang.String)[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="initialize" is-config="true" duration-ms="6731" started-at="2019-09-09T18:21:49Z" finished-at="2019-09-09T18:21:56Z">
+        <test-method status="PASS" signature="initialize(java.lang.String)[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="initialize" is-config="true" duration-ms="6720" started-at="2019-09-09T22:16:26Z" finished-at="2019-09-09T22:16:33Z">
           <params>
             <param index="0">
               <value>
@@ -22,7 +22,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initialize -->
-        <test-method status="PASS" signature="beforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="beforeTestMethod" is-config="true" duration-ms="3" started-at="2019-09-09T18:21:56Z" finished-at="2019-09-09T18:21:56Z">
+        <test-method status="PASS" signature="beforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="beforeTestMethod" is-config="true" duration-ms="2" started-at="2019-09-09T22:16:33Z" finished-at="2019-09-09T22:16:33Z">
           <params>
             <param index="0">
               <value>
@@ -33,21 +33,21 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTestMethod -->
-        <test-method status="PASS" signature="mapSyncUIValidation()[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="mapSyncUIValidation" duration-ms="8362" started-at="2019-09-09T18:21:56Z" finished-at="2019-09-09T18:22:04Z">
+        <test-method status="PASS" signature="mapSyncUIValidation()[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="mapSyncUIValidation" duration-ms="8367" started-at="2019-09-09T22:16:33Z" finished-at="2019-09-09T22:16:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- mapSyncUIValidation -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="afterMethod" is-config="true" duration-ms="0" started-at="2019-09-09T18:22:04Z" finished-at="2019-09-09T18:22:04Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="afterMethod" is-config="true" duration-ms="0" started-at="2019-09-09T22:16:41Z" finished-at="2019-09-09T22:16:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="TeardownTest()[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="TeardownTest" is-config="true" duration-ms="1128" started-at="2019-09-09T18:22:04Z" finished-at="2019-09-09T18:22:06Z">
+        <test-method status="PASS" signature="TeardownTest()[pri:0, instance:com.qi.mapsync.tests.AU001_Uivalidation@783e6358]" name="TeardownTest" is-config="true" duration-ms="1182" started-at="2019-09-09T22:16:41Z" finished-at="2019-09-09T22:16:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TeardownTest -->
       </class> <!-- com.qi.mapsync.tests.AU001_Uivalidation -->
       <class name="com.qi.mapsync.tests.AU002_LiveIncidentvalidation">
-        <test-method status="PASS" signature="initialize(java.lang.String)[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="initialize" is-config="true" duration-ms="5354" started-at="2019-09-09T18:22:06Z" finished-at="2019-09-09T18:22:11Z">
+        <test-method status="PASS" signature="initialize(java.lang.String)[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="initialize" is-config="true" duration-ms="5461" started-at="2019-09-09T22:16:42Z" finished-at="2019-09-09T22:16:48Z">
           <params>
             <param index="0">
               <value>
@@ -58,7 +58,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initialize -->
-        <test-method status="PASS" signature="beforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="beforeTestMethod" is-config="true" duration-ms="1" started-at="2019-09-09T18:22:11Z" finished-at="2019-09-09T18:22:11Z">
+        <test-method status="PASS" signature="testLiveIncident()[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="testLiveIncident" duration-ms="40889" started-at="2019-09-09T22:16:48Z" finished-at="2019-09-09T22:17:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLiveIncident -->
+        <test-method status="PASS" signature="beforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="beforeTestMethod" is-config="true" duration-ms="0" started-at="2019-09-09T22:16:48Z" finished-at="2019-09-09T22:16:48Z">
           <params>
             <param index="0">
               <value>
@@ -69,15 +73,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTestMethod -->
-        <test-method status="PASS" signature="testLiveIncident()[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="testLiveIncident" duration-ms="36029" started-at="2019-09-09T18:22:11Z" finished-at="2019-09-09T18:22:47Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testLiveIncident -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="afterMethod" is-config="true" duration-ms="0" started-at="2019-09-09T18:22:47Z" finished-at="2019-09-09T18:22:47Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="afterMethod" is-config="true" duration-ms="3" started-at="2019-09-09T22:17:29Z" finished-at="2019-09-09T22:17:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="TeardownTest()[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="TeardownTest" is-config="true" duration-ms="813" started-at="2019-09-09T18:22:47Z" finished-at="2019-09-09T18:22:48Z">
+        <test-method status="PASS" signature="TeardownTest()[pri:0, instance:com.qi.mapsync.tests.AU002_LiveIncidentvalidation@6fb554cc]" name="TeardownTest" is-config="true" duration-ms="809" started-at="2019-09-09T22:17:29Z" finished-at="2019-09-09T22:17:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TeardownTest -->

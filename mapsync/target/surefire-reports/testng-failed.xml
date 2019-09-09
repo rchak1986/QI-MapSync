@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [MapSync App Test Suite]">
+<suite guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [MapSync App Test Suite]">
   <parameter name="browser" value="Chrome"/>
   <test name="MapSync WebApp Validation - Chrome(failed)">
     <parameter name="browser" value="Chrome"/>
     <classes>
-      <class name="com.qi.mapsync.tests.AU002_LiveIncidentvalidation">
-        <methods>
-          <include name="initialize"/>
-          <include name="beforeTestMethod"/>
-          <include name="testLiveIncident"/>
-        </methods>
-      </class> <!-- com.qi.mapsync.tests.AU002_LiveIncidentvalidation -->
       <class name="com.qi.mapsync.tests.AU001_Uivalidation">
         <methods>
           <include name="initialize"/>
           <include name="beforeTestMethod"/>
           <include name="afterMethod"/>
           <include name="TeardownTest"/>
-          <include name="initiateReport"/>
           <include name="cleanReportDirectory"/>
         </methods>
       </class> <!-- com.qi.mapsync.tests.AU001_Uivalidation -->
+      <class name="com.qi.mapsync.tests.AU002_LiveIncidentvalidation">
+        <methods>
+          <include name="initialize"/>
+          <include name="beforeTestMethod"/>
+          <include name="afterMethod"/>
+          <include name="testLiveIncident"/>
+          <include name="TeardownTest"/>
+        </methods>
+      </class> <!-- com.qi.mapsync.tests.AU002_LiveIncidentvalidation -->
     </classes>
   </test> <!-- MapSync WebApp Validation - Chrome(failed) -->
 </suite> <!-- Failed suite [MapSync App Test Suite] -->

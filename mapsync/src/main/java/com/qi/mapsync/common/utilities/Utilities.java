@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Random;
 
 public class Utilities {
 	/**
@@ -36,5 +37,10 @@ public class Utilities {
 		File f = new File(filePath);
 		if (f.exists()) return true;
 		else return false;
+	}
+	
+	public int getRandom(int min, int max){
+		Random rn = new Random();
+		return (rn.nextInt(max - min + 1) + min);
 	}
 }

@@ -7,12 +7,19 @@
     <classes>
       <class name="com.qi.mapsync.tests.AU002_LiveIncidentvalidation">
         <methods>
+          <include name="initialize"/>
+          <include name="beforeTestMethod"/>
           <include name="testLiveIncident"/>
         </methods>
       </class> <!-- com.qi.mapsync.tests.AU002_LiveIncidentvalidation -->
       <class name="com.qi.mapsync.tests.AU001_Uivalidation">
         <methods>
-          <include name="mapSyncUIValidation"/>
+          <include name="initialize"/>
+          <include name="beforeTestMethod"/>
+          <include name="afterMethod"/>
+          <include name="TeardownTest"/>
+          <include name="initiateReport"/>
+          <include name="cleanReportDirectory"/>
         </methods>
       </class> <!-- com.qi.mapsync.tests.AU001_Uivalidation -->
     </classes>

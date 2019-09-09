@@ -61,17 +61,18 @@ public class MapArea {
     	}
     }
     
-    public void clickOnMapTabs(String tabName) throws InterruptedException{
+    public void clickOnMapTabs(String tabName) throws Exception{
+    	tabIncidents.click();
+    	Thread.sleep(3000);
+    	
     	for(WebElement elem:tabMapTabs){
     		if(elem.getAttribute("title").trim().toLowerCase().contains(tabName.toLowerCase())){
     			elem.click();
     			Thread.sleep(5000);
+    			driverUtil.waitUntilObjDisplayed(driver, welMapIcons.get(0));
     			break;
     		}
     	}
-    	
-    	tabIncidents.click();
-    	Thread.sleep(2000);
     }
     
     public boolean isTabEnabled(String tabName){

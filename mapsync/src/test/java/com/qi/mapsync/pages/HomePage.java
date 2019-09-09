@@ -33,6 +33,9 @@ public class HomePage {
     public void clickOnRegister(){
     	lnkRegister.click();
     }
+    public void clickOnSignin(){
+    	lnkSignIn.click();
+    }
     public boolean validateAndClickLeftTab(String tabText) throws InterruptedException{
     	boolean flag=false;
     	switch(tabText.toLowerCase()){

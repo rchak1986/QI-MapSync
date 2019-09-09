@@ -28,15 +28,17 @@ import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.qi.mapsync.common.utilities.*;
 
 @Listeners(TestReporter.class)
-public class TestBase extends Report{
+public class TestBase extends Report {
 	
 	public WebDriver driver;
 	private Utilities util=null;
 	public ExtentReports reports;
 	public ExtentTest test;
+	public ExtentHtmlReporter htmlReport;
 	
 	public WebDriver getDriver() {
         return driver;
@@ -156,7 +158,7 @@ public class TestBase extends Report{
 
 //	@AfterSuite
 //	public void flushReport(){
-//		driver.quit();
+////		driver.quit();
 //		closeReport(reports);
 //	}
 }

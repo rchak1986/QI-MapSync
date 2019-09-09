@@ -26,7 +26,7 @@ public class AU002_LiveIncidentvalidation extends TestBase {
 		inc.loadIncidents();
 		cAssert.assertTrue(inc.validateIncidentList(),"Incident List load");
 		
-		inc.searchIncident("Clementi");
+		inc.searchIncident(inc.getAnyRandomIncident());
 		try{
 			cAssert.assertTrue(inc.validateSearchIncident(true), "Incident list load with valid search");
 		}catch(Error e){
@@ -39,6 +39,7 @@ public class AU002_LiveIncidentvalidation extends TestBase {
 		inc.clearSearch();
 		
 		int pos = map.getZoomDraggerPosition();
+		incidentName = inc.getAnyRandomIncident();
 		String incDetail = inc.selectIncidentByTypeAndCaptureTimeAndDesc(incidentName);
 		if (incDetail!=null){
 			try{

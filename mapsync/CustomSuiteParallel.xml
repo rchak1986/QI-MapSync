@@ -14,7 +14,8 @@
 			<class name="com.qi.mapsync.tests.AU007_MapOperationValidationCameras" />   
 			<class name="com.qi.mapsync.tests.AU008_MapOperationValidationTolls" />   
 			<class name="com.qi.mapsync.tests.AU009_MapOperationValidationParking" />   
-			<class name="com.qi.mapsync.tests.AU010_MapOperationValidationTraffic" /-->       
+			<class name="com.qi.mapsync.tests.AU010_MapOperationValidationTraffic" />   
+			<class name="com.qi.mapsync.tests.AU011_SignInValidation" /-->           
 		</classes>	
 	</test>
 	
@@ -30,7 +31,8 @@
 			<class name="com.qi.mapsync.tests.AU007_MapOperationValidationCameras" />   
 			<!-- class name="com.qi.mapsync.tests.AU008_MapOperationValidationTolls" />   
 			<class name="com.qi.mapsync.tests.AU009_MapOperationValidationParking" />   
-			<class name="com.qi.mapsync.tests.AU010_MapOperationValidationTraffic" /-->       
+			<class name="com.qi.mapsync.tests.AU010_MapOperationValidationTraffic" /> 
+			<class name="com.qi.mapsync.tests.AU011_SignInValidation" /-->             
 		</classes>	
 	</test> 
 	

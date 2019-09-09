@@ -62,6 +62,20 @@ public class Incidents {
     	if (lstIncidentList.size()>0) return true;
     	else return false;
     }
+    
+    public String getAnyRandomIncident(){
+    	int incNum = util.getRandom(0, (lstIncidentList.size()-1));
+    	String separator =  "on";
+    	if (!lstIncidentList.get(incNum).getText().contains("on"))separator="in";
+    	return lstIncidentList.get(incNum).getText().split(separator)[1];
+    }
+    
+    public String getAnyRandomIncidentType(){
+    	int incNum = util.getRandom(0, (lstIncidentList.size()-1));
+    	String separator =  "on";
+    	if (!lstIncidentList.get(incNum).getText().contains("on"))separator="in";
+    	return lstIncidentList.get(incNum).getText().split(separator)[0].split("\\ ")[1];
+    }
    
     public boolean selectIncidentByType(String incidentType){
     	boolean flag=false;
