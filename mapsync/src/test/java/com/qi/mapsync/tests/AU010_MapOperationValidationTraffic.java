@@ -13,9 +13,9 @@ import com.qi.mapsync.pages.MapArea;
 public class AU010_MapOperationValidationTraffic extends TestBase {
 	@Test
 	public void testMapParking() throws Exception{
-		CustomAssertion cAssert = new CustomAssertion(driver);
+		CustomAssertion cAssert = new CustomAssertion(driver,test);
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
-		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page load");
 		
 		MapArea map = PageFactory.initElements(driver, MapArea.class);		
 		map.waitUntilBannerDisplayed();
@@ -24,7 +24,7 @@ public class AU010_MapOperationValidationTraffic extends TestBase {
 		cAssert.assertTrue(map.isTabEnabled("Incidents"));
 		map.clickOnMapTabs("Traffic Speed");
 		
-		cAssert.assertTrue(map.validateIfTrafficSpeedLegendDisplayed(),"Traffic Legend not displayed");
+		cAssert.assertTrue(map.validateIfTrafficSpeedLegendDisplayed(),"Traffic Legend validation");
 		
 		//incomplete test. Need more understanding on this.
 	}

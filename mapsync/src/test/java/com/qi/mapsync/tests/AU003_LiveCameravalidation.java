@@ -12,9 +12,9 @@ import com.qi.mapsync.common.utilities.*;
 public class AU003_LiveCameravalidation extends TestBase {
 	@Test
 	public void validateCameraList() throws Exception{
-		CustomAssertion cAssert = new CustomAssertion(driver);
+		CustomAssertion cAssert = new CustomAssertion(driver,test);
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
-		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page Load Validation");
 		
 		MapArea map = PageFactory.initElements(driver, MapArea.class);
 		map.waitUntilBannerDisplayed();
@@ -22,32 +22,32 @@ public class AU003_LiveCameravalidation extends TestBase {
 		
 		Cameras cam = PageFactory.initElements(driver, Cameras.class);
 		cam.loadCameras();
-		cAssert.assertTrue(cam.validateCameraList(),"Camera List is not loaded");
+		cAssert.assertTrue(cam.validateCameraList(),"Camera List Validation");
 		
 		cam.searchCamera("Ang Mo Kio");
-		cAssert.assertTrue(cam.validateCameraSearch(true), "Camera list is not populated");
+		cAssert.assertTrue(cam.validateCameraSearch(true), "Camera list with valid search");
 		cam.clearSearch();
 		
 		cam.searchCamera("abcdxyz");
-		cAssert.assertTrue(cam.validateCameraSearch(false), "Camera list is not expected to get populated");
+		cAssert.assertTrue(cam.validateCameraSearch(false), "Camera list with invalid search");
 		cam.clearSearch();
 		
 		int pos = map.getZoomDraggerPosition();
 		String camDetail = cam.selectCameraLocationAndCaptureInfo("Flyover");
-		cAssert.assertTrue(map.validateMapPopUp(), "Popup with cam detail is not shown up");
+		cAssert.assertTrue(map.validateMapPopUp(), "Popup with cam detail validation");
 		int pos2=map.getZoomDraggerPosition();
-		cAssert.assertTrue(pos>pos2,"Automatic Zoo did not happen");
+		cAssert.assertTrue(pos>pos2,"Automatic Zoom ");
 		
 		map.switch2CamFrame();
 		MapCameraDetailPopup mapCam = PageFactory.initElements(driver, MapCameraDetailPopup.class);
 		
-		cAssert.assertTrue(mapCam.validateCameraLocation(camDetail),"Popup details does not match with the selected incident");
-		cAssert.assertTrue(mapCam.validateLastUpdateInfo(),"Last Update info is not shown correctly");
-		cAssert.assertTrue(mapCam.validateCameraImage(),"Cam image is not shown correctly");
+		cAssert.assertTrue(mapCam.validateCameraLocation(camDetail),"Popup details validation w.r.t listing");
+		cAssert.assertTrue(mapCam.validateLastUpdateInfo(),"Last Update info validation");
+		cAssert.assertTrue(mapCam.validateCameraImage(),"Cam image validation");
 		map.switch2DefaultFrame();
 		
 		map.clickOnZoomIn(2);
-		cAssert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up after zoom");		
+		cAssert.assertTrue(map.validateMapPopUp(), "Camera Detail popup validation");		
 		map.closeMapPopUp();
 	}
 }

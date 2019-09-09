@@ -1,8 +1,11 @@
 package com.qi.mapsync.tests;
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import org.apache.commons.io.FileUtils; 
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,27 +18,58 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import com.qi.mapsync.common.utilities.*;
 
 @Listeners(TestReporter.class)
-public class TestBase {
+public class TestBase extends Report{
 	
 	public WebDriver driver;
 	private Utilities util=null;
+	public ExtentReports reports;
+	public ExtentTest test;
 	
 	public WebDriver getDriver() {
         return driver;
+	}
+	
+	public ExtentTest getETest(){
+		return test;
+	}
+	
+	public ExtentReports getEReport(){
+		return reports;
+	}
+	
+	@BeforeMethod
+	public void beforeTestMethod(Method testMethod){   
+		test = startTest(reports,testMethod.getName());
+	}
+	@BeforeSuite
+	public void cleanReportDirectory() throws IOException{
+		FileUtils.cleanDirectory(new File(System.getProperty("user.dir")+"/test-output/CustomReport/")); 
+	}
+	
+	@AfterMethod
+	public void afterMethod(){
+		if(reports==null)reports=getEReport();
 	}
 	
 	@SuppressWarnings("deprecation")
 	@BeforeClass
 	@Parameters({ "browser" })
 	public void initialize(@Optional String browser) throws IOException{
+		reports = initiateReport(this.getClass().getName().split("\\.")[4]);
+		
 		util = new Utilities();
 		String brw = util.getPropertyValue("Browser");
 		if (brw==null) brw="chrome";
@@ -101,6 +135,8 @@ public class TestBase {
 			break;
 		}
 	
+		//test = reports.startTest(ITestContext.class.getSimpleName());
+		
 		driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
       	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -115,6 +151,12 @@ public class TestBase {
 	public void TeardownTest()
     {
         driver.quit();
+        closeReport(reports);
     }
 
+//	@AfterSuite
+//	public void flushReport(){
+//		driver.quit();
+//		closeReport(reports);
+//	}
 }

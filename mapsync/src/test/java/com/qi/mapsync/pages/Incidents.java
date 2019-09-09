@@ -87,9 +87,7 @@ public class Incidents {
     	}
     	return time;
     }
-    
-    
-    
+       
     public void searchIncident(String text) throws InterruptedException{
     	txtSearchIncident.sendKeys(text);
     	Thread.sleep(5000);
@@ -102,7 +100,7 @@ public class Incidents {
     
     public boolean validateSearchIncident(boolean validSearch){
     	if (validSearch){
-    		if (lstIncidentList.size()>0 && lstIncidentList.get(0).isDisplayed() && !welNoSearchResult.isDisplayed()) return true;
+    		if (lstIncidentList.size()>0 && !welNoSearchResult.isDisplayed()) return true;
     		else return false;
     	}else{
     		if (welNoSearchResult.isDisplayed()) return true;

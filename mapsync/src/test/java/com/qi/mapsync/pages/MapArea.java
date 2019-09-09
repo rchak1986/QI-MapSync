@@ -233,6 +233,12 @@ public class MapArea {
     		Thread.sleep(1000);
     	}
     }
+    
+    public boolean validateAdBanner() throws InterruptedException{
+    	if (btnCollapseGalactioAd.getAttribute("class").contains("collapse")){
+    		return true;
+    	}else return false;
+    }
     public int getZoomDraggerPosition(){
     	String styleInfo = welMapZoomDragger.getAttribute("style");
     	String positionInfo = styleInfo.split("\\;")[2].trim().split("\\:")[1].trim().replace("px", "");

@@ -12,9 +12,9 @@ import com.qi.mapsync.pages.MapArea;
 public class AU006_MapOperationValidationIncidents extends TestBase {
 	@Test
 	public void testMapIncident() throws Exception{
-		CustomAssertion cAssert = new CustomAssertion(driver);
+		CustomAssertion cAssert = new CustomAssertion(driver,test);
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
-		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page load");
 		
 		MapArea map = PageFactory.initElements(driver, MapArea.class);		
 		map.waitUntilBannerDisplayed();
@@ -25,22 +25,22 @@ public class AU006_MapOperationValidationIncidents extends TestBase {
 		String multiCount = map.selectAndCaptureCountMultiIcons();
 		if (multiCount!=null){
 			int expectedCount = Integer.parseInt(multiCount) + 1;
-			cAssert.assertTrue(map.validatePopupLinkCount(expectedCount),"Incident count doesn't match with Icon");
-			cAssert.assertTrue(map.validateZoomInLink(),"Zoom In link does not appear");
+			cAssert.assertTrue(map.validatePopupLinkCount(expectedCount),"Incident count validation for multi icons");
+			cAssert.assertTrue(map.validateZoomInLink(),"Zoom In link validation on Popup");
 			String incDesc = map.clickAndCaptureFirstPopupLink();
 			
-			cAssert.assertTrue(map.validateMapPopUp(),"Popup does not show up");
-			cAssert.assertTrue(map.validateMapPopUpDesc(incDesc),"Incident detail does not match with multi incident popup icon");
+			cAssert.assertTrue(map.validateMapPopUp(),"Popup with incident detail validation");
+			cAssert.assertTrue(map.validateMapPopUpDesc(incDesc),"Incident detail validation w.r.t multi incident popup icon");
 			int pos2=map.getZoomDraggerPosition();
 			map.closeMapPopUp();			
 			
-			cAssert.assertTrue(pos>pos2,"Auto Zoom did not happen");
+			cAssert.assertTrue(pos>pos2,"Auto Zoom validation");
 		}
 		
 		map.pageRefresh();
 		map.clickOnMapTabs("Incidents");
 		map.clickOnAnyMapIcon();
-		cAssert.assertTrue(map.validateMapPopUp(),"Popup does not show up");
+		cAssert.assertTrue(map.validateMapPopUp(),"Popup with incident details validation");
 		map.closeMapPopUp();
 	}
 }

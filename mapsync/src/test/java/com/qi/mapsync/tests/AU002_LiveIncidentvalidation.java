@@ -12,9 +12,11 @@ import com.qi.mapsync.common.utilities.*;
 public class AU002_LiveIncidentvalidation extends TestBase {
 	@Test
 	public void testLiveIncident() throws Exception{
-		CustomAssertion cAssert = new CustomAssertion(driver);
+		String incidentName = "Heavy Traffic";
+		
+		CustomAssertion cAssert = new CustomAssertion(driver,test);
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
-		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page Load");
 		
 		MapArea map = PageFactory.initElements(driver, MapArea.class);		
 		map.waitUntilBannerDisplayed();
@@ -22,37 +24,38 @@ public class AU002_LiveIncidentvalidation extends TestBase {
 		
 		Incidents inc = PageFactory.initElements(driver, Incidents.class);
 		inc.loadIncidents();
-		cAssert.assertTrue(inc.validateIncidentList(),"Incident List is not loaded");
+		cAssert.assertTrue(inc.validateIncidentList(),"Incident List load");
 		
 		inc.searchIncident("Clementi");
 		try{
-			cAssert.assertTrue(inc.validateSearchIncident(true), "Incident list is not populated");
+			cAssert.assertTrue(inc.validateSearchIncident(true), "Incident list load with valid search");
 		}catch(Error e){
 			Reporter.log(e.toString());
 		}
 		inc.clearSearch();
 		
 		inc.searchIncident("abcdxyz");
-		cAssert.assertTrue(inc.validateSearchIncident(false), "Incident list is not expected to get populated");
+		cAssert.assertTrue(inc.validateSearchIncident(false), "Incident list load with invalid search");
 		inc.clearSearch();
 		
 		int pos = map.getZoomDraggerPosition();
-		String incDetail = inc.selectIncidentByTypeAndCaptureTimeAndDesc("Roadwork");
-		try{
-			cAssert.assertTrue(incDetail!=null);
-			cAssert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up");
-			int pos2=map.getZoomDraggerPosition();
-			cAssert.assertTrue(pos>pos2,"Automatic Zoo did not happen");
-			cAssert.assertTrue(map.validateMapPopUpTimeAndDesc("Roadwork", incDetail),"Popup details does not match with the selected incident");
-			map.clickOnZoomIn(2);
-			cAssert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up after zoom");		
-			map.closeMapPopUp();
-		}catch(Error e){
-			Reporter.log(e.toString());
-		}		
+		String incDetail = inc.selectIncidentByTypeAndCaptureTimeAndDesc(incidentName);
+		if (incDetail!=null){
+			try{
+				cAssert.assertTrue(map.validateMapPopUp(), "Popup with incident detail validation");
+				int pos2=map.getZoomDraggerPosition();
+				cAssert.assertTrue(pos>pos2,"Automatic Zoom");
+				cAssert.assertTrue(map.validateMapPopUpTimeAndDesc(incidentName, incDetail),"Popup details validation w.r.t incident tab");
+				map.clickOnZoomIn(2);
+				cAssert.assertTrue(map.validateMapPopUp(), "Map Zoom In with Popupon screen");		
+				map.closeMapPopUp();
+			}catch(Error e){
+				Reporter.log(e.toString());
+			}
+		}
 		
 		inc.selectYesterday();
-		cAssert.assertTrue(inc.validateNoIncident(),"Incident List is expected not to be loaded");
+		cAssert.assertTrue(inc.validateNoIncident(),"Incident List Validation with yesterdays date");
 		inc.pageRefresh();
 	}
 }

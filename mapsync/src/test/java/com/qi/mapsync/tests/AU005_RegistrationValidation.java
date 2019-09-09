@@ -15,9 +15,9 @@ import com.qi.mapsync.pages.Register;
 public class AU005_RegistrationValidation extends TestBase {
 	@Test
 	public void testRegistration() throws Exception{
-		CustomAssertion cAssert = new CustomAssertion(driver);
+		CustomAssertion cAssert = new CustomAssertion(driver,test);
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
-		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page Load");
 		
 		MapArea map = PageFactory.initElements(driver, MapArea.class);		
 		map.waitUntilBannerDisplayed();
@@ -25,7 +25,7 @@ public class AU005_RegistrationValidation extends TestBase {
 		
 		hPage.clickOnRegister();
 		Register register = PageFactory.initElements(driver, Register.class);
-		cAssert.assertTrue(register.validateRegisterPageLoad(),"Profile registration page not loaded");
+		cAssert.assertTrue(register.validateRegisterPageLoad(),"Profile registration page load");
 		
 		register.setFName("TestFName");
 		register.selectCountry("Singapore");
@@ -37,16 +37,16 @@ public class AU005_RegistrationValidation extends TestBase {
 		register.clickOnCreateProfile();
 		
 		try{
-			cAssert.assertTrue(register.validateProfileCreation(false),"Profile Registration not done");
+			cAssert.assertTrue(register.validateProfileCreation(false),"Profile Registration Completion with few mandatory fields");
 		}catch(Error e){
 			Reporter.log(e.toString());
 		}
 		
 		register.reNavigate();
 		
-		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page re-load");
 		hPage.clickOnRegister();
-		cAssert.assertTrue(register.validateRegisterPageLoad(),"Profile registration page not loaded");
+		cAssert.assertTrue(register.validateRegisterPageLoad(),"Profile registration page load");
 		
 		register.setFName("TestFName");
 		register.setLName("TestLName");
@@ -59,7 +59,7 @@ public class AU005_RegistrationValidation extends TestBase {
 		register.checkAgreement(true);
 		register.clickOnCreateProfile();
 		
-		cAssert.assertTrue(register.validateProfileCreation(true),"Profile Registration not done");
+		cAssert.assertTrue(register.validateProfileCreation(true),"Profile Registration Completetion with all mandatory fields");
 		
 	}
 }

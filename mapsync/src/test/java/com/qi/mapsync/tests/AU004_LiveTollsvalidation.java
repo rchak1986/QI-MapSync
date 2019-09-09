@@ -16,9 +16,9 @@ import com.qi.mapsync.common.utilities.*;
 public class AU004_LiveTollsvalidation extends TestBase {
 	@Test
 	public void validateTollList() throws Exception{
-		CustomAssertion cAssert = new CustomAssertion(driver);
+		CustomAssertion cAssert = new CustomAssertion(driver,test);
 		HomePage hPage = PageFactory.initElements(driver, HomePage.class);
-		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page is not loaded successfully");
+		cAssert.assertTrue(hPage.validatePageLoad(),"Home Page load");
 		
 		MapArea map = PageFactory.initElements(driver, MapArea.class);
 		map.waitUntilBannerDisplayed();
@@ -26,28 +26,28 @@ public class AU004_LiveTollsvalidation extends TestBase {
 		
 		Tolls toll = PageFactory.initElements(driver, Tolls.class);
 		toll.loadTollList();
-		cAssert.assertTrue(toll.validateTollList(),"Toll List is not loaded");
+		cAssert.assertTrue(toll.validateTollList(),"Toll List validation");
 		
 		toll.searchToll("CTE");
-		cAssert.assertTrue(toll.validateTollSearch(true), "Toll list is not populated");
+		cAssert.assertTrue(toll.validateTollSearch(true), "Toll list with valid search");
 		toll.clearSearch();
 		
 		toll.searchToll("abcdxyz");
-		cAssert.assertTrue(toll.validateTollSearch(false), "Toll list is not expected to get populated");
+		cAssert.assertTrue(toll.validateTollSearch(false), "Toll list is with invalid search");
 		toll.clearSearch();
 		
 		int pos = map.getZoomDraggerPosition();
 		String tollDetail = toll.selectTollLocationAndCaptureInfo("ECP TO CITY");
-		cAssert.assertTrue(map.validateMapPopUp(), "Popup with cam detail is not shown up");
+		cAssert.assertTrue(map.validateMapPopUp(), "Popup with Toll Detail validation");
 		int pos2=map.getZoomDraggerPosition();
-		cAssert.assertTrue(pos>pos2,"Automatic Zoo did not happen");
+		cAssert.assertTrue(pos>pos2,"Automatic Zoom");
 		
 		map.switch2TollFrame();
 		MapTollDetailPopup mapToll = PageFactory.initElements(driver, MapTollDetailPopup.class);
 		
-		cAssert.assertTrue(mapToll.validateTollLocation(tollDetail),"Popup details does not match with the selected toll");
-		cAssert.assertTrue(mapToll.validateIfTaxTableDisplayed(),"Tax Table info is not shown correctly");
-		cAssert.assertTrue(mapToll.validateVehicleTypeIfPresent("Motorcycle (Weekdays)"),"Vehicle Type is not shown correctly");
+		cAssert.assertTrue(mapToll.validateTollLocation(tollDetail),"Popup details validation w.r.t Toll listing");
+		cAssert.assertTrue(mapToll.validateIfTaxTableDisplayed(),"Tax Table info display");
+		cAssert.assertTrue(mapToll.validateVehicleTypeIfPresent("Motorcycle (Weekdays)"),"Change Vehicle Type");
 		mapToll.selectVehicleTypeIfPresent("Motorcycle (Weekdays)");
 		
 		HashMap<String, String> taxMap = new HashMap<>();
@@ -61,12 +61,12 @@ public class AU004_LiveTollsvalidation extends TestBase {
 		taxMap.put("09:00 - 22:30","$0.00");
 		taxMap.put("22:30 - 23:59","$0.00");
 		
-		cAssert.assertTrue(mapToll.validateTaxTable(taxMap),"Tax Rate Table is not showing correct data");
+		cAssert.assertTrue(mapToll.validateTaxTable(taxMap),"Tax Rate Table Validation");
 		
 		map.switch2DefaultFrame();
 		
 		map.clickOnZoomIn(2);
-		cAssert.assertTrue(map.validateMapPopUp(), "Popup with incident detail is not shown up after zoom");		
+		cAssert.assertTrue(map.validateMapPopUp(), "Popup with Toll data w.r.t screen zoom");		
 		map.closeMapPopUp();
 	}
 }
