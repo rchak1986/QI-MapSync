@@ -54,6 +54,11 @@ Execution can be donw in two ways
 1. In Eclipse project, Right click on any of the Suite XML and choose the option Run As TestNG Suite
 2. In the project directory, execute ```Executor.bat``` file, it will prompt for any suite xml file name. Provide any valid xml name and hit enter
 
+## Reports
+This project generates two kinds of reports as in-
+- Default TestNG emailable report [./test-output/index.html] and [./test-output/emailable-report.html]
+- Extent Reporting with color coded HTML format [./test-output/CustomReport/TestClassName_date&timestamp.html]
+
 # Test Scenarios
 The complete list of functional test cases can be found at: https://github.com/rchak1986/QI-MapSync/blob/master/mapsync/QITestCases.xlsx
 
