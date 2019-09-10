@@ -15,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
 
 public class CommonDriverUtilities {
 	WebDriver driver;
@@ -40,17 +41,21 @@ public class CommonDriverUtilities {
         }
     }
 	public void waitForLoad(WebDriver driver) {
-		Utilities util = new Utilities();
-		String timeout = util.getPropertyValue("GlobalTimeOutInSecs");
-		if (timeout==null)timeout="30";
-		ExpectedCondition<Boolean> pageLoadCondition = new
-				ExpectedCondition<Boolean>() {
-					public Boolean apply(WebDriver driver) {
-						return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
-					}
-				};
-		WebDriverWait wait = new WebDriverWait(driver, Long.parseLong(timeout));
-		wait.until(pageLoadCondition);
+		try{
+			Utilities util = new Utilities();
+			String timeout = util.getPropertyValue("GlobalTimeOutInSecs");
+			if (timeout==null)timeout="30";
+			ExpectedCondition<Boolean> pageLoadCondition = new
+					ExpectedCondition<Boolean>() {
+						public Boolean apply(WebDriver driver) {
+							return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+						}
+					};
+			WebDriverWait wait = new WebDriverWait(driver, Long.parseLong(timeout));
+			wait.until(pageLoadCondition);
+		}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
 	}
 	
 	public boolean waitUntilObjEnabled(WebDriver driver, WebElement wle) throws Exception
@@ -62,7 +67,8 @@ public class CommonDriverUtilities {
 			WebDriverWait wdwait = new WebDriverWait(driver, Long.parseLong(timeout));
 			wdwait.until(ExpectedConditions.elementToBeClickable(wle));
 			return true;
-		}catch(Exception err){
+		}catch(Exception e){
+			Reporter.log(e.getMessage());
 			return false;
 		}
 	}
@@ -76,7 +82,8 @@ public class CommonDriverUtilities {
 			WebDriverWait wdwait = new WebDriverWait(driver, Long.parseLong(timeout));
 			wdwait.until(ExpectedConditions.visibilityOf(wle));
 			return true;
-		}catch(Exception err){
+		}catch(Exception e){
+			Reporter.log(e.getMessage());
 			return false;
 		}
 	}
@@ -90,7 +97,8 @@ public class CommonDriverUtilities {
 			WebDriverWait wdwait = new WebDriverWait(driver, Long.parseLong(timeout));
 			wdwait.until(ExpectedConditions.elementToBeClickable(wle));
 			return true;
-		}catch(Exception err){
+		}catch(Exception e){
+			Reporter.log(e.getMessage());
 			return false;
 		}
 	}
@@ -109,6 +117,7 @@ public class CommonDriverUtilities {
 		try{
 			return tbl.findElements(By.xpath("tbody/tr["+Integer.toString(rowNumber)+"]/td")).size();
 		}catch(Exception err){
+			Reporter.log(err.getMessage());
 			return 0;
 		}
 	}
@@ -118,6 +127,7 @@ public class CommonDriverUtilities {
 		try{
 			return tbl.findElement(By.xpath("tbody/tr["+Integer.toString(rownum)+"]/td["+Integer.toString(colnum)+"]")).getText();
 		}catch(Exception err){
+			Reporter.log(err.getMessage());
 			return null;
 		}
 	}
@@ -143,6 +153,7 @@ public class CommonDriverUtilities {
 				}
 			}
 		}catch(Exception err){
+			Reporter.log(err.getMessage());
 		}
 		return rownumber;
 	}

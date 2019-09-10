@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.testng.Reporter;
 
 import com.qi.mapsync.common.utilities.CommonDriverUtilities;
 import com.qi.mapsync.common.utilities.Utilities;
@@ -31,79 +32,142 @@ public class HomePage {
     @FindBy(how=How.XPATH, using="//*[@id='info_panel']//a[contains(@class,'tab_button')]") List<WebElement> tabLeftTabs;
     
     public void clickOnRegister(){
-    	lnkRegister.click();
+    	try{
+    		lnkRegister.click();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     public void clickOnSignin(){
-    	lnkSignIn.click();
-    }
-    public boolean validateAndClickLeftTab(String tabText) throws InterruptedException{
-    	boolean flag=false;
-    	switch(tabText.toLowerCase()){
-    		case "directions":
-    			for (WebElement elem: tabLeftTabs){
-    				if (elem.getAttribute("class").contains("directions")){
-    					flag=true;
-    					elem.click();
-    					Thread.sleep(1000);
-    					break;
-    				}
-    			}
-    			break;
-    		case "personal":
-    			for (WebElement elem: tabLeftTabs){
-    				if (elem.getAttribute("class").contains("me_tab")){
-    					flag=true;
-    					elem.click();
-    					Thread.sleep(1000);
-    					break;
-    				}
-    			}
-    			break;
-    		case "live":
-    			for (WebElement elem: tabLeftTabs){
-    				if (elem.getAttribute("class").contains("live_tab")){
-    					flag=true;
-    					elem.click();
-    					Thread.sleep(1000);
-    					break;
-    				}
-    			}
-    			break;
+    	try{
+    		lnkSignIn.click();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
     	}
-    	return flag;
+    }
+    public boolean validateAndClickLeftTab(String tabText) {
+    	try{
+	    	boolean flag=false;
+	    	switch(tabText.toLowerCase()){
+	    		case "directions":
+	    			for (WebElement elem: tabLeftTabs){
+	    				if (elem.getAttribute("class").contains("directions")){
+	    					flag=true;
+	    					elem.click();
+	    					Thread.sleep(1000);
+	    					break;
+	    				}
+	    			}
+	    			break;
+	    		case "personal":
+	    			for (WebElement elem: tabLeftTabs){
+	    				if (elem.getAttribute("class").contains("me_tab")){
+	    					flag=true;
+	    					elem.click();
+	    					Thread.sleep(1000);
+	    					break;
+	    				}
+	    			}
+	    			break;
+	    		case "live":
+	    			for (WebElement elem: tabLeftTabs){
+	    				if (elem.getAttribute("class").contains("live_tab")){
+	    					flag=true;
+	    					elem.click();
+	    					Thread.sleep(1000);
+	    					break;
+	    				}
+	    			}
+	    			break;
+	    	}
+	    	return flag;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
-    public boolean validatePageLoad() throws Exception{
-    	driverUtil.waitForLoad(driver);
-    	return driverUtil.waitUntilObjEnabled(driver, btnGlobalSearch);
+    public boolean validatePageLoad() {
+    	try{
+	    	driverUtil.waitForLoad(driver);
+	    	return driverUtil.waitUntilObjEnabled(driver, btnGlobalSearch);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
     public boolean validateGlobalSearchPresense(){
-    	return txtGlobalSearch.isDisplayed();
+    	try{
+    		return txtGlobalSearch.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public boolean validateGlobalSearchButtonPresense(){
-    	return btnGlobalSearch.isDisplayed();
+    	try{
+    		return btnGlobalSearch.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public boolean validateSignInLinkPresense(){
-    	return lnkSignIn.isDisplayed();
+    	try{
+    		return lnkSignIn.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public boolean validateRegisterLinkPresense(){
-    	return lnkRegister.isDisplayed();
+    	try{
+    		return lnkRegister.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public boolean validateMobileAppLinkPresense(){
-    	return lnkMobileApp.isDisplayed();
+    	try{
+    		return lnkMobileApp.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public boolean validateGalactioLinkPresense(){
-    	return lnkGalactio.isDisplayed();
+    	try{
+    		return lnkGalactio.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public boolean validateGPSNavigationLinkPresense(){
-    	return lnkGPSNavigation.isDisplayed();
+    	try{
+    		return lnkGPSNavigation.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public boolean validateLegendLinkPresense(){
-    	return lnkLegend.isDisplayed();
+    	try{
+    		return lnkLegend.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public boolean validateCalendarLinkPresense(){
-    	return lnkCalendar.isDisplayed();
+    	try{
+    		return lnkCalendar.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     //to do
     //add validation for other links here

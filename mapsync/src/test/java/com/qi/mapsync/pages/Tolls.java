@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.testng.Reporter;
 
 import com.qi.mapsync.common.utilities.CommonDriverUtilities;
 import com.qi.mapsync.common.utilities.Utilities;
@@ -28,46 +29,73 @@ public class Tolls {
     @FindBy(how=How.ID, using="popup_contentDiv") WebElement welMapTollPopUp;
     
     public void loadTollList(){
-    	tabLive.click();
-    	tabTolls.click();
-    	driverUtil.waitForLoad(driver);
+    	try{
+	    	tabLive.click();
+	    	tabTolls.click();
+	    	driverUtil.waitForLoad(driver);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public boolean validateTollList(){
-    	if (lstTollsList.size()>0) return true;
-    	else return false;
-    }
-    
-    public String selectTollLocationAndCaptureInfo(String tollNameOrLocation) throws Exception{
-    	String camInfo= null;
-    	for(WebElement elem:lstTollsList){
-    		if(elem.getText().trim().toLowerCase().contains(tollNameOrLocation.toLowerCase())){
-    			camInfo = elem.getText().trim();
-    			elem.click();
-    			driverUtil.waitUntilObjDisplayed(driver, welMapTollPopUp);
-    			break;
-    		}
+    	try{
+	    	if (lstTollsList.size()>0) return true;
+	    	else return false;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
     	}
-    	return camInfo;
     }
     
-    public void searchToll(String tollNameOrLocation) throws InterruptedException{
-    	txtSearchTollLocation.sendKeys(tollNameOrLocation);
-    	Thread.sleep(5000);
+    public String selectTollLocationAndCaptureInfo(String tollNameOrLocation){
+    	try{
+	    	String camInfo= null;
+	    	for(WebElement elem:lstTollsList){
+	    		if(elem.getText().trim().toLowerCase().contains(tollNameOrLocation.toLowerCase())){
+	    			camInfo = elem.getText().trim();
+	    			elem.click();
+	    			driverUtil.waitUntilObjDisplayed(driver, welMapTollPopUp);
+	    			break;
+	    		}
+	    	}
+	    	return camInfo;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return null;
+    	}
     }
     
-    public void clearSearch() throws InterruptedException{
-    	txtSearchTollLocation.clear();
-    	Thread.sleep(3000);
+    public void searchToll(String tollNameOrLocation) {
+    	try{
+	    	txtSearchTollLocation.sendKeys(tollNameOrLocation);
+	    	Thread.sleep(5000);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
+    }
+    
+    public void clearSearch(){
+    	try{
+	    	txtSearchTollLocation.clear();
+	    	Thread.sleep(3000);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public boolean validateTollSearch(boolean validSearch){
-    	if (validSearch){
-    		if (lstTollsList.size()>0 && !welNoTollFound.isDisplayed()) return true;
-    		else return false;
-    	}else{
-    		if (welNoTollFound.isDisplayed()) return true;
-    		else return false;
+    	try{
+	    	if (validSearch){
+	    		if (lstTollsList.size()>0 && !welNoTollFound.isDisplayed()) return true;
+	    		else return false;
+	    	}else{
+	    		if (welNoTollFound.isDisplayed()) return true;
+	    		else return false;
+	    	}
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
     	}
     }
 }

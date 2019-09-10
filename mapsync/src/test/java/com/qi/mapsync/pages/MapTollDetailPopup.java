@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Reporter;
 
 import com.qi.mapsync.common.utilities.CommonDriverUtilities;
 import com.qi.mapsync.common.utilities.Utilities;
@@ -27,77 +28,112 @@ public class MapTollDetailPopup {
     @FindBy(how=How.XPATH, using="//*[@id='div_erp_rate']/table") List<WebElement> tblTaxRates;
     
     public boolean validateTollLocation(String expectedLocation){
-    	boolean flag=false;
-    	if (welLocationInfo.getText().trim().toLowerCase().contains(expectedLocation.toLowerCase())) flag=true;
-    	return flag;
+    	try{
+	    	boolean flag=false;
+	    	if (welLocationInfo.getText().trim().toLowerCase().contains(expectedLocation.toLowerCase())) flag=true;
+	    	return flag;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
     public boolean validateVehicleTypesWRTItemCount(int itemCount){
-    	Select sel = new Select(ddlVahicleTypes);
-    	List<WebElement> list = sel.getOptions();
-    	if (itemCount==list.size())return true;
-    	else return false;
+    	try{
+	    	Select sel = new Select(ddlVahicleTypes);
+	    	List<WebElement> list = sel.getOptions();
+	    	if (itemCount==list.size())return true;
+	    	else return false;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
 
     public boolean validateVehicleTypeIfPresent(String vType){
-    	boolean flag=false;
-    	Select sel = new Select(ddlVahicleTypes);
-    	List<WebElement> list = sel.getOptions();
-    	for (WebElement e : list){
-    		if (e.getText().trim().contains(vType)){
-    			flag=true;
-    			break;
-    		}
+    	try{
+	    	boolean flag=false;
+	    	Select sel = new Select(ddlVahicleTypes);
+	    	List<WebElement> list = sel.getOptions();
+	    	for (WebElement e : list){
+	    		if (e.getText().trim().contains(vType)){
+	    			flag=true;
+	    			break;
+	    		}
+	    	}
+	    	return flag;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
     	}
-    	return flag;
     }
     
     public boolean selectVehicleTypeIfPresent(String vType){
-    	boolean flag=false;
-    	Select sel = new Select(ddlVahicleTypes);
-    	List<WebElement> list = sel.getOptions();
-    	for (WebElement e : list){
-    		if (e.getText().trim().contains(vType)){
-    			sel.selectByVisibleText(e.getText());
-    			flag=true;
-    			break;
-    		}
+    	try{
+	    	boolean flag=false;
+	    	Select sel = new Select(ddlVahicleTypes);
+	    	List<WebElement> list = sel.getOptions();
+	    	for (WebElement e : list){
+	    		if (e.getText().trim().contains(vType)){
+	    			sel.selectByVisibleText(e.getText());
+	    			flag=true;
+	    			break;
+	    		}
+	    	}
+	    	return flag;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
     	}
-    	return flag;
     }
     
     public WebElement getTargetTaxTable(){
-    	WebElement tElem=null;
-    	for (WebElement elem: tblTaxRates){
-    		if (elem.getAttribute("style").contains("block")){
-    			tElem=elem;
-    			break;
-    		}
+    	try{
+	    	WebElement tElem=null;
+	    	for (WebElement elem: tblTaxRates){
+	    		if (elem.getAttribute("style").contains("block")){
+	    			tElem=elem;
+	    			break;
+	    		}
+	    	}
+	    	return tElem;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return null;
     	}
-    	return tElem;
     }
     
-    public boolean validateTaxTable(HashMap<String,String> taxSet) throws Exception{
-    	boolean flag=true;
-    	for (String key : taxSet.keySet()) {
-    		String time = key;
-			String cost = taxSet.get(key);
-			
-			WebElement targetTable = getTargetTaxTable();
-			int targetRow = driverUtil.getRowWithCellText(targetTable, time);
-			if (targetRow>0){
-				String targetCost = driverUtil.getCellData(targetTable, targetRow, 2);
-				if (!targetCost.equals(cost)){
-					flag=false;
-					break;
-				}
-			}			
-		}
-    	return flag;
+    public boolean validateTaxTable(HashMap<String,String> taxSet) {
+    	try{
+	    	boolean flag=true;
+	    	for (String key : taxSet.keySet()) {
+	    		String time = key;
+				String cost = taxSet.get(key);
+				
+				WebElement targetTable = getTargetTaxTable();
+				int targetRow = driverUtil.getRowWithCellText(targetTable, time);
+				if (targetRow>0){
+					String targetCost = driverUtil.getCellData(targetTable, targetRow, 2);
+					if (!targetCost.equals(cost)){
+						flag=false;
+						break;
+					}
+				}			
+			}
+	    	return flag;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
     public boolean validateIfTaxTableDisplayed(){
-    	WebElement tbl = getTargetTaxTable();
-    	return tbl.isDisplayed();
+    	try{
+	    	WebElement tbl = getTargetTaxTable();
+	    	return tbl.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
 }

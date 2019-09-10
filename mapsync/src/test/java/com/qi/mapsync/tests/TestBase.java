@@ -17,6 +17,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -32,8 +33,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.qi.mapsync.common.utilities.*;
 
 @Listeners(TestReporter.class)
-public class TestBase extends Report {
-	
+public class TestBase extends Report {	
 	public WebDriver driver;
 	private Utilities util=null;
 	public ExtentReports reports;
@@ -58,7 +58,11 @@ public class TestBase extends Report {
 	}
 	@BeforeSuite
 	public void cleanReportDirectory() throws IOException{
-		FileUtils.cleanDirectory(new File(System.getProperty("user.dir")+"/test-output/CustomReport/")); 
+		try{
+			FileUtils.cleanDirectory(new File(System.getProperty("user.dir")+"/test-output/CustomReport/"));
+		}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
 	}
 	
 	@AfterMethod
@@ -136,8 +140,6 @@ public class TestBase extends Report {
 			//add mobile driver capabilities
 			break;
 		}
-	
-		//test = reports.startTest(ITestContext.class.getSimpleName());
 		
 		driver.manage().deleteAllCookies();
         driver.manage().window().maximize();

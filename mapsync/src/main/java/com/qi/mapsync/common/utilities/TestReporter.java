@@ -23,9 +23,10 @@ public class TestReporter extends TestListenerAdapter {
         if(!result.isSuccess()){
             try {
                 File destFile = driverUtil.getScreenshot(methodName);
-                Reporter.log(System.lineSeparator()+"test Failed at: " + result.getTestClass().getName()+System.lineSeparator() + "<a href='"+ destFile.getAbsolutePath() + "'> <img src='"+ destFile.getAbsolutePath() + "' height='100' width='100'/> </a>");
-                test.log(Status.FAIL, "test Failed at: " + result.getTestClass().getName()+System.lineSeparator() + "<a href='"+ destFile.getAbsolutePath() + "'> <img src='"+ destFile.getAbsolutePath() + "' height='100' width='100'/> </a>");
+                Reporter.log(System.lineSeparator()+"test Failed at: " + result.getTestClass().getName()+System.lineSeparator() + "<br></br><a href='"+ destFile.getAbsolutePath() + "'> <img src='"+ destFile.getAbsolutePath() + "' height='100' width='100'/> </a>");
+                test.log(Status.FAIL, "test Failed at: " + result.getTestClass().getName()+System.lineSeparator() + "<br></br><a href='"+ destFile.getAbsolutePath() + "'> <img src='"+ destFile.getAbsolutePath() + "' height='100' width='100'/> </a>");
             } catch (Exception e) {
+            	Reporter.log(e.getMessage());
                 e.printStackTrace();
             }
         }

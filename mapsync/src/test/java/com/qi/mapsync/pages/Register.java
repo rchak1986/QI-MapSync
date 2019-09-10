@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Reporter;
 
 import com.qi.mapsync.common.utilities.CommonDriverUtilities;
 import com.qi.mapsync.common.utilities.Utilities;
@@ -40,110 +41,185 @@ public class Register {
     @FindBy(how=How.XPATH, using="//*[@id='new_profile']/div[@class='error_signup']") WebElement msgErrorMsg;
     @FindBy(how=How.XPATH, using="//*[@class='header_item'][contains(@href,'history')]") WebElement lnkBack;
     
-    public void clickOnBack() throws InterruptedException{
-    	Actions action= new Actions(driver);
-    	action.click().perform();
-    	Thread.sleep(3000);
+    public void clickOnBack(){
+    	try{
+	    	Actions action= new Actions(driver);
+	    	action.click().perform();
+	    	Thread.sleep(3000);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     public void reNavigate(){
-    	String url = util.getPropertyValue("URL");
-		if (url==null) url="http://www.mapsynq.com";
-      	driver.navigate().to(url);	
+    	try{
+	    	String url = util.getPropertyValue("URL");
+			if (url==null) url="http://www.mapsynq.com";
+	      	driver.navigate().to(url);	
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     public void pageRefresh(){
-    	driver.navigate().refresh();
-    	driverUtil.waitForLoad(driver);
+    	try{
+	    	driver.navigate().refresh();
+	    	driverUtil.waitForLoad(driver);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
-    public boolean validateRegisterPageLoad() throws Exception{
+    public boolean validateRegisterPageLoad() {
     	try{
     		driverUtil.waitForLoad(driver);
     		driverUtil.waitUntilObjDisplayed(driver, btnCreateProfile);
     		return true;
-    	}catch(Error e){
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
     		return false;
     	}
     }
     public void setFName(String fName){
-    	txtFName.sendKeys(fName);
+    	try{
+    		txtFName.sendKeys(fName);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void setLName(String lName){
-    	txtLName.sendKeys(lName);
+    	try{
+    		txtLName.sendKeys(lName);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void selectCountry(String country){
-    	Select cntry= new Select(ddlCountry);
-    	cntry.selectByVisibleText(country);
+    	try{
+	    	Select cntry= new Select(ddlCountry);
+	    	cntry.selectByVisibleText(country);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void setAddress(String address){
-    	txtAddress.sendKeys(address);
+    	try{
+    		txtAddress.sendKeys(address);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void setContact(String contact){
-    	txtContact.sendKeys(contact);
+    	try{
+    		txtContact.sendKeys(contact);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     public void setGender(String gender){
-    	if (gender.toLowerCase().equals("m") || gender.toLowerCase().equals("male")){
-    		for(WebElement elem:rdoGender){
-    			if(elem.getAttribute("value").toLowerCase().equals("m")){
-    				elem.click();
-    				break;
-    			}
-    		}
-    	}else{
-    		for(WebElement elem:rdoGender){
-    			if(elem.getAttribute("value").toLowerCase().equals("f")){
-    				elem.click();
-    				break;
-    			}
-    		}
+    	try{
+	    	if (gender.toLowerCase().equals("m") || gender.toLowerCase().equals("male")){
+	    		for(WebElement elem:rdoGender){
+	    			if(elem.getAttribute("value").toLowerCase().equals("m")){
+	    				elem.click();
+	    				break;
+	    			}
+	    		}
+	    	}else{
+	    		for(WebElement elem:rdoGender){
+	    			if(elem.getAttribute("value").toLowerCase().equals("f")){
+	    				elem.click();
+	    				break;
+	    			}
+	    		}
+	    	}
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
     	}
     }
     
     public void setDOB(String dob){
-    	txtDOB.sendKeys(dob);
+    	try{
+    		txtDOB.sendKeys(dob);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void setEmail(String email){
-    	txtEmail.sendKeys(email);
+    	try{
+    		txtEmail.sendKeys(email);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void setPassword(String password){
-    	txtPassword.sendKeys(password);
+    	try{
+    		txtPassword.sendKeys(password);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     public boolean validateUserName(){
-    	if (txtUserName.getText().equals(txtEmail.getText())) return true;
-    	else return false;
+    	try{
+	    	if (txtUserName.getText().equals(txtEmail.getText())) return true;
+	    	else return false;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     public void setConfirmPassword(String password){
-    	txtConfirmPassword.sendKeys(password);
+    	try{
+    		txtConfirmPassword.sendKeys(password);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
-    public void checkAgreement(boolean state) throws InterruptedException{
-    	Thread.sleep(2000);
-    	if (state && !chkAgree.isSelected()) chkAgree.sendKeys(Keys.ENTER);;
-    	if(!state && chkAgree.isSelected()) chkAgree.sendKeys(Keys.ENTER);
+    public void checkAgreement(boolean state) {
+    	try{
+	    	Thread.sleep(2000);
+	    	if (state && !chkAgree.isSelected()) chkAgree.sendKeys(Keys.ENTER);
+	    	if(!state && chkAgree.isSelected()) chkAgree.sendKeys(Keys.ENTER);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void checkSubscription(boolean state){
-    	if (state && !chkSubcribe.isSelected()) chkSubcribe.click();
-    	if(!state && chkSubcribe.isSelected()) chkSubcribe.click();
+    	try{
+	    	if (state && !chkSubcribe.isSelected()) chkSubcribe.sendKeys(Keys.ENTER);;
+	    	if(!state && chkSubcribe.isSelected()) chkSubcribe.sendKeys(Keys.ENTER);;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
-    public void clickOnCreateProfile() throws InterruptedException{
-    	btnCreateProfile.click();
-    	Thread.sleep(2000);
+    public void clickOnCreateProfile(){
+    	try{
+	    	btnCreateProfile.click();
+	    	Thread.sleep(2000);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public boolean validateProfileCreation(boolean expectedBehavior){
-    	if (expectedBehavior){
-    		if(msgErrorMsg.isDisplayed()) return false;
-    		else return true;
-    	}else{
-    		if(msgErrorMsg.isDisplayed()) return true;
-    		else return false;
+    	try{
+	    	if (expectedBehavior){
+	    		if(msgErrorMsg.isDisplayed()) return false;
+	    		else return true;
+	    	}else{
+	    		if(msgErrorMsg.isDisplayed()) return true;
+	    		else return false;
+	    	}
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
     	}
     }
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Reporter;
 
 import com.qi.mapsync.common.utilities.CommonDriverUtilities;
 import com.qi.mapsync.common.utilities.Utilities;
@@ -33,92 +34,151 @@ public class Incidents {
     
     
     public void loadIncidents(){
-    	tabLive.click();
-    	tabIncidents.click();
-    	driverUtil.waitForLoad(driver);
+    	try{
+	    	tabLive.click();
+	    	tabIncidents.click();
+	    	driverUtil.waitForLoad(driver);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public boolean validateNoIncident(){
-    	return welNoIncidentData.isDisplayed();
+    	try{
+    		return welNoIncidentData.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
     public void pageRefresh(){
-    	driver.navigate().refresh();
-    	driverUtil.waitForLoad(driver);
+    	try{
+	    	driver.navigate().refresh();
+	    	driverUtil.waitForLoad(driver);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
-    public void selectYesterday() throws InterruptedException{
-    	Select sel = new Select(ddlIncidentDay);
-    	sel.selectByIndex(1);
-    	Thread.sleep(5000);
+    public void selectYesterday(){
+    	try{
+	    	Select sel = new Select(ddlIncidentDay);
+	    	sel.selectByIndex(1);
+	    	Thread.sleep(5000);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
-    public void selectToday() throws InterruptedException{
-    	Select sel = new Select(ddlIncidentDay);
-    	sel.selectByIndex(0);
-    	Thread.sleep(3000);
+    public void selectToday() {
+    	try{
+	    	Select sel = new Select(ddlIncidentDay);
+	    	sel.selectByIndex(0);
+	    	Thread.sleep(3000);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public boolean validateIncidentList(){
-    	if (lstIncidentList.size()>0) return true;
-    	else return false;
+    	try{
+	    	if (lstIncidentList.size()>0) return true;
+	    	else return false;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
     public String getAnyRandomIncident(){
-    	int incNum = util.getRandom(0, (lstIncidentList.size()-1));
-    	String separator =  "on";
-    	if (!lstIncidentList.get(incNum).getText().contains("on"))separator="in";
-    	return lstIncidentList.get(incNum).getText().split(separator)[1];
+    	try{
+	    	int incNum = util.getRandom(0, (lstIncidentList.size()-1));
+	    	String separator =  "on";
+	    	if (!lstIncidentList.get(incNum).getText().contains("on"))separator="in";
+	    	return lstIncidentList.get(incNum).getText().split(separator)[1];
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return null;
+    	}
     }
     
     public String getAnyRandomIncidentType(){
-    	int incNum = util.getRandom(0, (lstIncidentList.size()-1));
-    	String separator =  "on";
-    	if (!lstIncidentList.get(incNum).getText().contains("on"))separator="in";
-    	return lstIncidentList.get(incNum).getText().split(separator)[0].split("\\ ")[1];
+    	try{
+	    	int incNum = util.getRandom(0, (lstIncidentList.size()-1));
+	    	String separator =  "on";
+	    	if (!lstIncidentList.get(incNum).getText().contains("on"))separator="in";
+	    	return lstIncidentList.get(incNum).getText().split(separator)[0].split("\\ ")[1];
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return null;
+    	}
     }
    
     public boolean selectIncidentByType(String incidentType){
-    	boolean flag=false;
-    	for (WebElement elem:lstIncidentList){
-    		if (elem.getText().contains(incidentType)){
-    			elem.click();
-    			flag=true;
-    			break;
-    		}
+    	try{
+	    	boolean flag=false;
+	    	for (WebElement elem:lstIncidentList){
+	    		if (elem.getText().contains(incidentType)){
+	    			elem.click();
+	    			flag=true;
+	    			break;
+	    		}
+	    	}
+	    	return flag;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
     	}
-    	return flag;
     }
     
     public String selectIncidentByTypeAndCaptureTimeAndDesc(String incidentType) throws Exception{
-    	String time=null;
-    	for (WebElement elem:lstIncidentList){
-    		if (elem.getText().contains(incidentType)){
-    			elem.click();
-    			time = elem.findElement(By.tagName("div")).getText().trim() + "|" + elem.getText().trim();
-    			driverUtil.waitUntilObjDisplayed(driver, welMapIncidentPopUp);
-    			break;
-    		}
+    	try{
+	    	String time=null;
+	    	for (WebElement elem:lstIncidentList){
+	    		if (elem.getText().contains(incidentType)){
+	    			elem.click();
+	    			time = elem.findElement(By.tagName("div")).getText().trim() + "|" + elem.getText().trim();
+	    			driverUtil.waitUntilObjDisplayed(driver, welMapIncidentPopUp);
+	    			break;
+	    		}
+	    	}
+	    	return time;
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return null;
     	}
-    	return time;
     }
        
-    public void searchIncident(String text) throws InterruptedException{
-    	txtSearchIncident.sendKeys(text);
-    	Thread.sleep(5000);
+    public void searchIncident(String text) {
+    	try{
+	    	txtSearchIncident.sendKeys(text);
+	    	Thread.sleep(5000);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
-    public void clearSearch() throws InterruptedException{
-    	txtSearchIncident.clear();
-    	Thread.sleep(5000);
+    public void clearSearch()  {
+    	try{
+	    	txtSearchIncident.clear();
+	    	Thread.sleep(5000);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public boolean validateSearchIncident(boolean validSearch){
-    	if (validSearch){
-    		if (lstIncidentList.size()>0 && !welNoSearchResult.isDisplayed()) return true;
-    		else return false;
-    	}else{
-    		if (welNoSearchResult.isDisplayed()) return true;
-    		else return false;
+    	try{
+	    	if (validSearch){
+	    		if (lstIncidentList.size()>0 && !welNoSearchResult.isDisplayed()) return true;
+	    		else return false;
+	    	}else{
+	    		if (welNoSearchResult.isDisplayed()) return true;
+	    		else return false;
+	    	}
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
     	}
     }
 }

@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.testng.Reporter;
 
 import com.qi.mapsync.common.utilities.CommonDriverUtilities;
 import com.qi.mapsync.common.utilities.Utilities;
@@ -26,47 +27,87 @@ public class SignIn {
     @FindBy(how=How.XPATH, using="//*[@class='text_create_account']/child::a") WebElement lnkCreateAccount;
     
     public boolean validateErrorMessage(boolean expectedState){
-    	if(expectedState){
-    		if (lblErrorMsg.isDisplayed()) return true;
-    		else return false;
-    	}else{
-    		if (lblErrorMsg.isDisplayed()) return false;
-    		else return true;
+    	try{
+	    	if(expectedState){
+	    		if (lblErrorMsg.isDisplayed()) return true;
+	    		else return false;
+	    	}else{
+	    		if (lblErrorMsg.isDisplayed()) return false;
+	    		else return true;
+	    	}
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
     	}
     }
     
     public boolean validateCreateAccountLink(){
-    	return lnkCreateAccount.isDisplayed();
+    	try{
+    		return lnkCreateAccount.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
     public boolean validateForgotPasswordLink(){
-    	return lnkForgotPassword.isDisplayed();
+    	try{
+    		return lnkForgotPassword.isDisplayed();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
     public void setUserName(String userName){
-    	txtUsername.sendKeys(userName);
+    	try{ 
+    		txtUsername.sendKeys(userName);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void setPassword(String password){
-    	txtPassword.sendKeys(password);
+    	try{
+    		txtPassword.sendKeys(password);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
     public void clickOnSignIn(){
-    	btnSignin.click();
+    	try{
+    		btnSignin.click();
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     
-    public boolean validateSignInPageLoad() throws Exception{
-    	driverUtil.waitForLoad(driver);
-    	return driverUtil.waitUntilObjDisplayed(driver, btnSignin);
+    public boolean validateSignInPageLoad(){
+    	try{
+	    	driverUtil.waitForLoad(driver);
+	    	return driverUtil.waitUntilObjDisplayed(driver, btnSignin);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    		return false;
+    	}
     }
     
     public void reNavigate(){
-    	String url = util.getPropertyValue("URL");
-		if (url==null) url="http://www.mapsynq.com";
-      	driver.navigate().to(url);	
+    	try{
+	    	String url = util.getPropertyValue("URL");
+			if (url==null) url="http://www.mapsynq.com";
+	      	driver.navigate().to(url);	
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
     public void pageRefresh(){
-    	driver.navigate().refresh();
-    	driverUtil.waitForLoad(driver);
+    	try{
+	    	driver.navigate().refresh();
+	    	driverUtil.waitForLoad(driver);
+    	}catch(Exception e){
+    		Reporter.log(e.getMessage());
+    	}
     }
 }
