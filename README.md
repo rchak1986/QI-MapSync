@@ -6,6 +6,14 @@ This project involves the following:
 ```TestNG```
 ```Extent Reporting```
 
+# Project Architecture
+1. Based on ```Page Object Model - Page Factory``` architecture
+2. Each page/ area/ module corresponds to a different ```java class``` with all web elements defined in it.
+3. Each page class contains methods for each user actions like clicking, seting text etc.
+4. Each test class instantiates page classes and thereby its elements and calls action methods as per the test scenario flow.
+5. Each test class ```inherits``` a super class ```TestBase``` which takes care of browser initialization, reporting, test closure etc.
+6. Test Classes use TestNG annotation for test flow control and reporting.
+
 # Project Confirguration, Execution & Report
 ## Prerequisites
 ```Java 1.7 or above```
